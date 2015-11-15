@@ -7,6 +7,7 @@ RUN ln -s ancientca-services.crt /etc/ssl/certs/$(openssl x509 -noout -hash -in 
 RUN ln /etc/ancientca/root/cacert.pem /etc/ssl/certs/ancientca-root.crt
 RUN ln -s ancientca-root.crt /etc/ssl/certs/$(openssl x509 -noout -hash -in /etc/ssl/certs/ancientca-root.crt).0
 RUN /usr/sbin/update-ca-certificates
+RUN cat /etc/ancientca/services/cacert.pem /etc/ancientca/root/cacert.pem >> /etc/ssl/certs/ca-certificates.crt
 
 ADD kube2sky kube2sky
 
