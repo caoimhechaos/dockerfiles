@@ -1,4 +1,4 @@
-FROM caoimhechaos/ancientsolutions-base:latest
+FROM debian:stretch
 MAINTAINER Caoimhe Chaos <caoimhechaos@protonmail.com>
 
 RUN apt-get update
