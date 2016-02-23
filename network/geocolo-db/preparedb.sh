@@ -1,7 +1,7 @@
 #!/bin/sh
 set -e
 su postgres -c "nohup /usr/lib/postgresql/9.4/bin/postmaster -D /var/lib/postgresql/9.4/main      -c config_file=/etc/postgresql/9.4/main/postgresql.conf > /dev/null 2>&1 < /dev/null &"
-attempts=10
+attempts=60
 
 # Wait for PostgreSQL to come up.
 while ! test -e /var/run/postgresql/.s.PGSQL.5432
@@ -25,7 +25,7 @@ su postgres -c "psql -c \"GRANT SELECT ON TABLE geoborders, spatial_ref_sys TO g
 pkill postmaster
 
 # Wait for postmaster to shut down properly.
-attempts=32
+attempts=96
 while pgrep postmaster
 do
 	sleep 1
