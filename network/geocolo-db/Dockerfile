@@ -7,10 +7,10 @@ COPY preparedb.sh /tmp/preparedb.sh
 
 # This will retrieve the shapes file directly from naturalearthdata.
 #
-# RUN curl -LO http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/ne_110m_admin_0_countries_lakes.zip
+RUN curl -LO http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/110m/cultural/ne_110m_admin_0_countries_lakes.zip
 
 # Use the locally provided ne_110m_admin_0_countries_lakes.shp file.
-COPY ne_110m_admin_0_countries_lakes.zip ne_110m_admin_0_countries_lakes.zip
+# COPY ne_110m_admin_0_countries_lakes.zip ne_110m_admin_0_countries_lakes.zip
 
 RUN unzip ne_110m_admin_0_countries_lakes.zip
 RUN shp2pgsql -W "latin1" ne_110m_admin_0_countries_lakes.shp geoborders >> geoborders.sql
