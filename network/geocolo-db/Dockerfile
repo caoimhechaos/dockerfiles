@@ -2,7 +2,7 @@ FROM debian:stretch
 MAINTAINER Caoimhe Chaos <caoimhechaos@protonmail.com>
 
 RUN apt-get update
-RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold --purge install postgresql postgis unzip
+RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold --purge install postgresql postgis unzip curl
 COPY preparedb.sh /tmp/preparedb.sh
 
 # This will retrieve the shapes file directly from naturalearthdata.
