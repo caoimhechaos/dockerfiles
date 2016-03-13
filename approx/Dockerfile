@@ -1,4 +1,4 @@
-FROM debian
+FROM debian:unstable
 MAINTAINER Caoimhe Chaos <caoimhechaos@protonmail.com>
 
 # Tell apt to keep to itself.
