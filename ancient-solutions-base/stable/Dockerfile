@@ -13,7 +13,7 @@ RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-
 RUN echo "deb http://debian.l.internetputzen.com/ancientsolutions/ stable main third-party" > /etc/apt/sources.list.d/ancientsolutions.list
 
 # Install the ancient solutions debian key.
-RUN curl -m 30 "http://wwwkeys.uk.pgp.net:11371/pks/lookup?search=0xC74A8F85&op=get" | apt-key add -
+RUN apt-key adv --keyserver wwwkeys.uk.pgp.net --recv-key C74A8F85
 
 # Apply apt changes.
 ONBUILD RUN apt-get -q -y update
