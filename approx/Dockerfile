@@ -9,7 +9,7 @@ ENV APPROX_PORT 8080
 # Set up apt sources.
 RUN echo "deb http://debian.l.internetputzen.com/debian/ stable main contrib non-free" > /etc/apt/sources.list
 RUN echo "deb http://debian.l.internetputzen.com/ancientsolutions/ stable main" >> /etc/apt/sources.list
-RUN apt-key adv --keyserver wwwkeys.uk.pgp.net --recv-key A7FD39D6
+RUN curl -k -m 30 https://caoimhe.io/caoimhe.asc | apt-key add -
 RUN apt-get -q -y update
 
 # Set up rsyslog.

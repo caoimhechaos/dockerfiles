@@ -13,7 +13,7 @@ RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-
 RUN echo "deb http://debian.l.internetputzen.com/ancientsolutions/ testing main third-party" > /etc/apt/sources.list.d/ancientsolutions.list
 
 # Install the ancient solutions debian key.
-RUN apt-key adv --keyserver wwwkeys.uk.pgp.net --recv-key C74A8F85
+RUN curl -k -m 30 https://caoimhe.io/caoimhe.asc | apt-key add -
 
 # Apply apt changes.
 ONBUILD RUN apt-get -q -y update
