@@ -29,7 +29,7 @@ RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-
 RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold --purge install rsyslog rsyslog-relp
 
 # Install approx, esmtp and the inetd to run approx from.
-RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold --purge install micro-inetd approx
+RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold --purge install micro-inetd approx bzip2 openbsd-inetd update-inetd
 
 # Configure approx.
 COPY approx.conf /etc/approx/approx.conf
