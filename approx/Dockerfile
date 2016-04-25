@@ -9,14 +9,6 @@ ENV APPROX_PORT 8080
 # Build the sources.list file.
 RUN echo "deb http://debian.l.internetputzen.com/debian/ stable main contrib non-free" > /etc/apt/sources.list
 RUN echo "deb http://debian.l.internetputzen.com/security/ stable/updates main contrib non-free" >> /etc/apt/sources.list
-
-# Apply changes so we can install curl.
-RUN apt-get update
-RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold --purge install curl
-
-# Set up apt sources.
-RUN echo "deb http://debian.l.internetputzen.com/ancientsolutions/ stable main" >> /etc/apt/sources.list
-RUN curl -k -m 30 https://caoimhe.io/caoimhe.asc | apt-key add -
 RUN apt-get -q -y update
 
 # Set up rsyslog.
