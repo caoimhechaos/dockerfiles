@@ -6,7 +6,7 @@ RUN curl -k -m 30 https://download.owncloud.org/download/repositories/9.0/Debian
 COPY sources.list /etc/apt/sources.list.d/owncloud.list
 
 RUN apt-get update
-RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold --purge install owncloud owncloud-files owncloud-client-cmd php7.0-pgsql php7.0-sqlite php7.0-cli php7.0-common php7.0-curl php7.0-gd php7.0-imap php7.0-intl php7.0-json php7.0-ldap php7.0-mbstring php7.0-mcrypt php7.0-mysql php7.0-opcache php7.0-pgsql php7.0-readline php7.0-sqlite3 php7.0-xml php7.0-zip apache2 apache2-bin apache2-data apache2-utils cron ssmtp file clamav-unofficial-sigs ssl-cert kviator
+RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold --purge install owncloud owncloud-files owncloud-client-cmd php7.0-pgsql php7.0-sqlite php7.0-cli php7.0-common php7.0-curl php7.0-gd php7.0-imap php7.0-intl php7.0-json php7.0-ldap php7.0-mbstring php7.0-mcrypt php7.0-mysql php7.0-opcache php7.0-pgsql php7.0-readline php7.0-sqlite3 php7.0-xml php7.0-zip apache2 apache2-bin apache2-data apache2-utils cron ssmtp file clamav-unofficial-sigs ssl-cert libreoffice kviator
 
 COPY apache-owncloud.conf /etc/apache2/sites-available/owncloud.conf
 
@@ -32,7 +32,7 @@ RUN /bin/sed -i -e '/IfModule\>/i SSLStaplingCache "shmcb:logs/stapling-cache(15
 RUN mkdir -p /secret/owncloud-cert
 
 EXPOSE 80/tcp 443/tcp
-VOLUME ["/var/www/owncloud/data", "/secret/owncloud-cert"]
+VOLUME ["/var/www/owncloud/apps", "/var/www/owncloud/config", "/var/www/owncloud/data", "/secret/owncloud-cert"]
 
 ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_LOG_DIR /var/log/apache2
