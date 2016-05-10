@@ -32,7 +32,7 @@ RUN /bin/sed -i -e '/IfModule\>/i SSLStaplingCache "shmcb:logs/stapling-cache(15
 RUN mkdir -p /secret/owncloud-cert
 
 EXPOSE 80/tcp 443/tcp
-VOLUME ["/var/www/owncloud/apps", "/var/www/owncloud/config", "/var/www/owncloud/data", "/secret/owncloud-cert"]
+VOLUME ["/var/log/apache2", "/var/www/owncloud/apps", "/var/www/owncloud/config", "/var/www/owncloud/data", "/secret/owncloud-cert"]
 
 ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_LOG_DIR /var/log/apache2
