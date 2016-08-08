@@ -7,7 +7,7 @@ RUN echo "deb http://debian.l.internetputzen.com/security/ testing/updates main 
 
 # Apply changes so we can install curl.
 RUN apt-get update
-RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold --purge install curl
+RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold --purge install curl gnupg2
 
 # Now add the ancient solutions apt source.
 RUN echo "deb http://debian.l.internetputzen.com/ancientsolutions/ testing main third-party" > /etc/apt/sources.list.d/ancientsolutions.list
