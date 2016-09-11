@@ -16,6 +16,10 @@ RUN unzip ne_110m_admin_0_countries_lakes.zip
 RUN shp2pgsql -W "latin1" ne_110m_admin_0_countries_lakes.shp geoborders >> geoborders.sql
 RUN sh /tmp/preparedb.sh
 RUN sed -i -e "s/^#.*listen_addresses.*=.*'.*'/listen_addresses = '*'/g" /etc/postgresql/9.5/main/postgresql.conf
+
+# Disable shared memory since that doesn't work well in Docker.
+RUN sed -i -e "s/^dynamic_shared_memory_type.*=.*$/dynamic_shared_memory_type = none/g" /etc/postgresql/9.5/main/postgresql.conf
+
 RUN echo "host\tgis\tgeoreader\t0.0.0.0/0\tmd5" >> /etc/postgresql/9.5/main/pg_hba.conf
 RUN echo "host\tgis\tgeoreader\t::/0\tmd5" >> /etc/postgresql/9.5/main/pg_hba.conf
 
