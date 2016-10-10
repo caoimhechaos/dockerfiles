@@ -6,4 +6,4 @@
 rpcbind
 service nfs-kernel-server start
 
-exec inotifywait -m /export
+exec inotifywait -m $(grep -v '^#' /etc/exports | awk '{ print $1 }')
