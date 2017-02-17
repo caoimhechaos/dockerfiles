@@ -1,6 +1,7 @@
 #!/bin/sh
+set -x
 set -e
-su postgres -c "nohup /usr/lib/postgresql/9.5/bin/postmaster -D /var/lib/postgresql/9.5/main      -c config_file=/etc/postgresql/9.5/main/postgresql.conf > /tmp/gen-postgresql.log 2>&1 < /dev/null &"
+su postgres -c "nohup /usr/lib/postgresql/9.6/bin/postmaster -D /var/lib/postgresql/9.6/main      -c config_file=/etc/postgresql/9.6/main/postgresql.conf > /tmp/gen-postgresql.log 2>&1 < /dev/null &"
 attempts=60
 
 # Wait for PostgreSQL to come up.
@@ -16,10 +17,10 @@ do
 	fi
 done
 
-ls -l /usr/share/postgresql/9.5/contrib/
+ls -l /usr/share/postgresql/9.6/contrib/
 su postgres -c "createdb gis"
-su postgres -c "psql -f /usr/share/postgresql/9.5/contrib/postgis-2.2/postgis.sql gis"
-su postgres -c "psql -f /usr/share/postgresql/9.5/contrib/postgis-2.2/legacy.sql gis"
+su postgres -c "psql -f /usr/share/postgresql/9.6/contrib/postgis-2.3/postgis.sql gis"
+su postgres -c "psql -f /usr/share/postgresql/9.6/contrib/postgis-2.3/legacy.sql gis"
 su postgres -c "psql -f geoborders.sql gis"
 su postgres -c "psql -c \"CREATE ROLE georeader WITH NOSUPERUSER NOCREATEDB NOCREATEROLE INHERIT LOGIN ENCRYPTED PASSWORD 'blahblahblubberblubber';\" postgres"
 su postgres -c "psql -c \"REVOKE CREATE ON SCHEMA public FROM georeader;\" gis"
