@@ -9,4 +9,4 @@ USER root
 EXPOSE 22/tcp
 VOLUME ["/secrets", "/var/lib/git"]
 
-CMD ["/bin/sh", "-l"]
+CMD ["/bin/sh", "/usr/local/bin/run-gitolite.sh"]
