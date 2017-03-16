@@ -30,13 +30,21 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+set -e
+
 install -o git -g git -m 0700 -d /var/lib/git/.gitolite	\
 	/var/lib/git/.gitolite/logs
 
 if [ ! -e /var/lib/git/.gitolite/keydir/pubkey.pub ] ||	\
 	! diff -q /secrets/pubkey.pub /var/lib/git/.gitolite/keydir/pubkey.pub
 then
-	su - git -c 'gitolite setup -pk /var/lib/git/.gitolite/keydir/pubkey.pub'
+	su - git -c 'gitolite setup -pk /secrets/pubkey.pub'
 fi
 
-exec sshd -D
+install -o root -g root -m 0755 -d /etc/ssh
+for f in /secrets/ssh_host_*
+do
+	cp "$f" /etc/ssh
+done
+
+exec /usr/sbin/sshd -D
