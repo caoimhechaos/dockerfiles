@@ -1,18 +1,13 @@
 FROM debian:stable
-MAINTAINER Caoimhe Chaos <caoimhechaos@protonmail.com>
+LABEL maintainer Caoimhe Chaos <caoimhechaos@protonmail.com>
 
 # Tell apt to keep to itself.
 ENV DEBIAN_FRONTEND noninteractive
 ENV SETUID_USER approx
 ENV APPROX_PORT 8080
 
-# Build the sources.list file.
-RUN echo "deb http://debian.l.internetputzen.com/debian/ stable main contrib non-free" > /etc/apt/sources.list
-RUN echo "deb http://debian.l.internetputzen.com/security/ stable/updates main contrib non-free" >> /etc/apt/sources.list
+# Build the sources.list cache.
 RUN apt-get -q -y update
-
-# Set up rsyslog.
-COPY rsyslog.conf /etc/rsyslog.conf
 
 # Install esmtp so stuff stops installing exim.
 RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold --purge install esmtp esmtp-run
@@ -22,6 +17,9 @@ RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-
 
 # Install approx, esmtp and the inetd to run approx from.
 RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold --purge install micro-inetd approx bzip2 openbsd-inetd update-inetd
+
+# Set up rsyslog.
+COPY rsyslog.conf /etc/rsyslog.conf
 
 # Configure approx.
 COPY approx.conf /etc/approx/approx.conf
