@@ -64,4 +64,4 @@ then
 	echo "sslmode: \"${GEOCOLO_DB_SSLMODE}\"" >> /etc/geocolo/geocolo.conf
 fi
 
-exec /usr/bin/geocolo-service --config=/etc/geocolo/geocolo.conf --listen-addr=[::]:1234
+exec /go/bin/geocolo-service --config=/etc/geocolo/geocolo.conf --listen-addr=[::]:1234
