@@ -36,9 +36,9 @@ install -o git -g git -m 0700 -d /var/lib/git/.gitolite	\
 	/var/lib/git/.gitolite/logs
 
 if [ ! -e /var/lib/git/.gitolite/keydir/pubkey.pub ] ||	\
-	! diff -q /secrets/pubkey.pub /var/lib/git/.gitolite/keydir/pubkey.pub
+	! diff -q /import/pubkey.pub /var/lib/git/.gitolite/keydir/pubkey.pub
 then
-	su - git -c 'gitolite setup -pk /secrets/pubkey.pub'
+	su - git -c 'gitolite setup -pk /import/pubkey.pub'
 fi
 
 install -o root -g root -m 0755 -d /etc/ssh

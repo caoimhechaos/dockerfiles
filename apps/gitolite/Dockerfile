@@ -7,6 +7,6 @@ RUN chmod 0555 /usr/local/bin/run-gitolite.sh
 
 USER root
 EXPOSE 22/tcp
-VOLUME ["/secrets", "/var/lib/git"]
+VOLUME ["/import", "/secrets", "/var/lib/git"]
 
 CMD ["/bin/sh", "/usr/local/bin/run-gitolite.sh"]
