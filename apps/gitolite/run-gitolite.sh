@@ -44,7 +44,7 @@ fi
 install -o root -g root -m 0755 -d /etc/ssh
 for f in /secrets/ssh_host_*
 do
-	cp "$f" /etc/ssh
+	install -o root -g root -m 0600 "$f" "/etc/ssh/$(basename "$f")"
 done
 
 exec /usr/sbin/sshd -D
