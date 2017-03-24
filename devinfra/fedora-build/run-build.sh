@@ -1,7 +1,7 @@
 #!/bin/bash
 set -x
 cd /build
-dnf --refresh builddep "$@"
+dnf -y --refresh builddep "$@"
 if [[ "$@" == *rpm ]]
 then
 	exec su builder -c "/usr/bin/rpmbuild --rebuild $@"
