@@ -1,7 +1,7 @@
 FROM golang:alpine
 LABEL maintainer Caoimhe Chaos <caoimhechaos@protonmail.com>
 
-RUN apk --update add git protobuf
+RUN apk --update add git protobuf geoip
 RUN go get github.com/AcalephStorage/kviator
 RUN go get github.com/golang/protobuf/protoc-gen-go
 RUN go get -d github.com/caoimhechaos/geocolo/geocolo-service
@@ -13,6 +13,8 @@ RUN ["/usr/sbin/adduser", "-S", "-h", "/nonexistent", "-H", "-g", "Geolocation S
 
 RUN ["/usr/bin/install", "-o", "_geocolo", "-g", "_geocolo", "-m", "0755", "-d", "/etc/geocolo"]
 RUN ["/usr/bin/install", "-o", "root", "-g", "root", "-m", "0700", "-d", "/run/geocolo-certs"]
+
+RUN ["/etc/periodic/monthly/geoip"]
 
 ADD config-and-run-geocolo.sh /usr/bin/config-and-run-geocolo.sh
 
