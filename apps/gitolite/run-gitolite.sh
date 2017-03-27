@@ -47,4 +47,4 @@ do
 	install -o root -g root -m 0600 "$f" "/etc/ssh/$(basename "$f")"
 done
 
-exec /usr/sbin/sshd -D
+exec /usr/sbin/sshd -eD
