@@ -19,8 +19,8 @@ RUN /usr/sbin/a2ensite owncloud.conf
 RUN /bin/sed -i -e 's/^[#\t ]*SSLCipherSuite.*$/SSLCipherSuite EECDH+AESGCM:EDH+AESGCM:AES256+EECDH:AES256+EDH/g' /etc/apache2/mods-available/ssl.conf
 RUN /bin/sed -i -e 's/^[#\t ]*SSLProtocol.*$/SSLProtocol All -SSLv2 -SSLv3/g' /etc/apache2/mods-available/ssl.conf
 RUN /bin/sed -i -e 's/^[#\t ]*SSLHonorCipherOrder.*$/SSLHonorCipherOrder On/g' /etc/apache2/mods-available/ssl.conf
-RUN /bin/sed -i -e 's@^[#\t ]*SSLCertificateFile.*$@SSLCertificateFile /secret/owncloud-cert/fullchain.pem@g' /etc/apache2/mods-available/ssl.conf
-RUN /bin/sed -i -e 's@^[#\t ]*SSLCertificateKeyFile.*$@SSLCertificateKeyFile /secret/owncloud-cert/privkey.pem@g' /etc/apache2/mods-available/ssl.conf
+RUN /bin/sed -i -e 's@^[#\t ]*SSLCertificateFile.*$@SSLCertificateFile /secret/owncloud-cert/tls.crt@g' /etc/apache2/mods-available/ssl.conf
+RUN /bin/sed -i -e 's@^[#\t ]*SSLCertificateKeyFile.*$@SSLCertificateKeyFile /secret/owncloud-cert/tls.key@g' /etc/apache2/mods-available/ssl.conf
 RUN /bin/sed -i -e '/IfModule\>/i Header always set Strict-Transport-Security "max-age=63072000; preload"' /etc/apache2/mods-available/ssl.conf
 RUN /bin/sed -i -e '/IfModule\>/i Header always set X-Frame-Options SAMEORIGIN' /etc/apache2/mods-available/ssl.conf
 RUN /bin/sed -i -e '/IfModule\>/i Header always set X-Content-Type-Options nosniff' /etc/apache2/mods-available/ssl.conf
