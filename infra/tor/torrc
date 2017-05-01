@@ -1,0 +1,24 @@
+SocksPort 9050
+SocksListenAddress @ADDRESS@:9050
+
+# Accept only RFC1918 and similar non-routed adresses. The assumption
+# is that if the cluster owner routed this here there must be a
+# reason.
+SOCKSPolicy accept 192.168.0.0/16
+SOCKSPolicy accept 10.0.0.0/8
+SOCKSPolicy accept 172.16.0.0/12
+SOCKSPolicy accept 100.64.0.0/16
+SOCKSPolicy reject *
+
+# Provide a DNS service over Tor
+DNSPort 9053
+DNSListenAddress @ADDRESS@:9053
+AutomapHostsOnResolve 1
+AutomapHostsSuffixes .exit,.onion
+WarnUnsafeSocks 0
+
+# Log to the docker console.
+Log notice stderr
+
+# tmpfs with random stuff.
+DataDirectory /var/lib/tor
