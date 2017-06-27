@@ -35,8 +35,10 @@ set -e
 install -o git -g git -m 0700 -d /var/lib/git/.gitolite	\
 	/var/lib/git/.gitolite/logs
 
-if [ ! -e /var/lib/git/.gitolite/keydir/admin.pub ] ||	\
-	! diff -q /import/admin.pub /var/lib/git/.gitolite/keydir/admin.pub
+# If we don't have a gitolite config yet but there is an admin key under
+# /import, set up gitolite with that key being the new admin.
+if [ ! -e /var/lib/git/.gitolite/conf/gitolite.conf ] &&	\
+	[ -e /import/admin.pub ]
 then
 	su - git -c 'gitolite setup -a admin -pk /import/admin.pub'
 fi
