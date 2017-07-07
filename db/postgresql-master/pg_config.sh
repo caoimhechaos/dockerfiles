@@ -119,10 +119,12 @@ POSTGRESQL_VERSION="9.6"
 /usr/bin/pg_conftool -- set lc_time en_US.UTF-8
 
 # Secret configuration
-# TODO(caoimhe): generate hba config from etcd on demand.
 /usr/bin/pg_conftool -- set ssl_cert_file /tls/postgresql.crt
 /usr/bin/pg_conftool -- set ssl_key_file /tls/postgresql.key
-/usr/bin/pg_conftool -- set hba_file /secrets/postgresql.hba.conf
-/usr/bin/pg_conftool -- set ident_file /secrets/postgresql.ident.conf
+
+# Authentication related configuration.
+# TODO(caoimhe): generate hba config from etcd on demand.
+/usr/bin/pg_conftool -- set hba_file /config/postgresql.hba.conf
+/usr/bin/pg_conftool -- set ident_file /config/postgresql.ident.conf
 
 exec "/usr/lib/postgresql/${POSTGRESQL_VERSION}/bin/postmaster" "-D" "/var/lib/postgresql/${POSTGRESQL_VERSION}/main" "-c" "config_file=/etc/postgresql/${POSTGRESQL_VERSION}/main/postgresql.conf"

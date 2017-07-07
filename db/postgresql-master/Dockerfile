@@ -16,7 +16,7 @@ RUN ["/usr/bin/install", "-o", "postgres", "-g", "postgres", "-m", "2750", "-d",
 RUN ["/usr/bin/install", "-o", "postgres", "-g", "postgres", "-m", "2750", "-d", "/var/run/postgresql/9.6-main.pg_stat_tmp"]
 
 EXPOSE 5432/tcp
-VOLUME ["/secrets", "/tls", "/var/lib/postgresql"]
+VOLUME ["/config", "/tls", "/var/lib/postgresql"]
 USER postgres
 
 CMD ["/bin/sh", "/usr/local/bin/pg_config.sh"]
