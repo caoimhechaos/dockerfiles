@@ -15,13 +15,13 @@ Certificate mount point
 
 Certificates must be provided as base64 PEM encoded X.509 certificate and key files. The following files are expected to be present:
 
- * /tls/postgresql.crt: X.509 certificate.
- * /tls/postgresql.key: Private key belonging to the above certificate.
+ * /tls/tls.crt: X.509 certificate.
+ * /tls/tls.key: Private key belonging to the above certificate.
 
 If you want to create a test certificate and key, you can do so by invoking the following command:
 
-> % openssl req -new -newkey rsa:4096 -keyout postgresql.key -out postgresql.crt -x509 -subj /CN=yourhostname
-> % kubectl create secret tls postgresql-test-cert --cert=postgresql.crt --key=postgresql.key
+> % openssl req -new -newkey rsa:4096 -keyout tls.key -out tls.crt -x509 -subj /CN=yourhostname
+> % kubectl create secret tls postgresql-test-cert --cert=tls.crt --key=tls.key
 
 Configuration files
 -------------------
