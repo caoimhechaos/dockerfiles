@@ -138,8 +138,10 @@ rm -f "/var/lib/postgresql/${POSTGRESQL_VERSION}/main/postmaster.pid"
 /usr/bin/pg_conftool -- set lc_time en_US.UTF-8
 
 # Secret configuration
-/usr/bin/pg_conftool -- set ssl_cert_file /tls/tls.crt
-/usr/bin/pg_conftool -- set ssl_key_file /tls/tls.key
+/usr/bin/install -o postgres -g postgres -m 0600 /tls/tls.crt /tmp/tls.crt
+/usr/bin/install -o postgres -g postgres -m 0600 /tls/tls.key /tmp/tls.key
+/usr/bin/pg_conftool -- set ssl_cert_file /tmp/tls.crt
+/usr/bin/pg_conftool -- set ssl_key_file /tmp/tls.key
 
 # Authentication related configuration.
 # TODO(caoimhe): generate hba config from etcd on demand.

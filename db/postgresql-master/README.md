@@ -9,6 +9,7 @@ Mount points
  * /var/lib/postgresql: permanent storage for the contents of the PostgreSQL database. Example: ceph rdb.
  * /tls: certificate and private key storage (ideally tmpfs).
  * /config: subdirectory for specific configuration files (see below). Not necessarily secret, so this can be a simple configmap and doesn’t need to be tempts.
+ * /tmp: empty tmpfs.
 
 Certificate mount point
 -----------------------

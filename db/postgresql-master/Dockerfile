@@ -17,7 +17,7 @@ RUN ["/usr/bin/install", "-o", "postgres", "-g", "postgres", "-m", "2750", "-d",
 RUN ["/usr/bin/chown", "-R", "postgres:postgres", "/etc/postgresql"]
 
 EXPOSE 5432/tcp
-VOLUME ["/config", "/tls", "/var/lib/postgresql"]
+VOLUME ["/config", "/tls", "/tmp", "/var/lib/postgresql"]
 USER postgres
 
 CMD ["/bin/sh", "/usr/local/bin/pg_config.sh"]
