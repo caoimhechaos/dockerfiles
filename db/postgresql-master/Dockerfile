@@ -14,6 +14,7 @@ ADD pg_config.sh /usr/local/bin/pg_config.sh
 RUN ["/bin/chmod", "0555", "/usr/local/bin/pg_config.sh"]
 RUN ["/usr/bin/install", "-o", "postgres", "-g", "postgres", "-m", "2750", "-d", "/var/run/postgresql"]
 RUN ["/usr/bin/install", "-o", "postgres", "-g", "postgres", "-m", "2750", "-d", "/var/run/postgresql/9.6-main.pg_stat_tmp"]
+RUN ["/usr/bin/chown", "-R", "postgres:postgres", "/etc/postgresql"]
 
 EXPOSE 5432/tcp
 VOLUME ["/config", "/tls", "/var/lib/postgresql"]
