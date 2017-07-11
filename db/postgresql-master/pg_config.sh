@@ -118,7 +118,8 @@ install -o postgres -g postgres -m 2775 -d "/var/run/postgresql/${POSTGRESQL_VER
 /usr/bin/pg_conftool -- set wal_level hot_standby
 /usr/bin/pg_conftool -- set max_wal_senders 5
 /usr/bin/pg_conftool -- set wal_keep_segments 8
-/usr/bin/pg_conftool -- set checkpoint_segments 8
+/usr/bin/pg_conftool -- set min_wal_size 64MB
+/usr/bin/pg_conftool -- set max_wal_size 2048MB
 /usr/bin/pg_conftool -- set checkpoint_completion_target 0.7
 
 # Logging
