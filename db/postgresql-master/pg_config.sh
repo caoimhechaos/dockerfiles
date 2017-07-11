@@ -30,7 +30,24 @@
 # ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
 # POSSIBILITY OF SUCH DAMAGE.
 
+set -x
+
 POSTGRESQL_VERSION="9.6"
+
+if [ ! -f "/var/lib/postgresql/${POSTGRESQL_VERSION}/main/PG_VERSION" ]
+then
+	/usr/bin/pg_createcluster "${POSTGRESQL_VERSION}" main
+fi
+
+# Set up configuration directory.
+mkdir -p "/etc/postgresql/${POSTGRESQL_VERSION}/main"
+chgrp -R postgres "/etc/postgresql/${POSTGRESQL_VERSION}/main"
+
+# Make sure we start from a clean config state.
+rm -f "/etc/postgresql/${POSTGRESQL_VERSION}/main/postgresql.conf"
+touch "/etc/postgresql/${POSTGRESQL_VERSION}/main/postgresql.conf"
+
+install -o postgres -g postgres -m 2775 -d "/var/run/postgresql/${POSTGRESQL_VERSION}-main.pg_stat_tmp"
 
 # Access
 /usr/bin/pg_conftool -- set listen_addresses '*'
@@ -126,10 +143,5 @@ POSTGRESQL_VERSION="9.6"
 # TODO(caoimhe): generate hba config from etcd on demand.
 /usr/bin/pg_conftool -- set hba_file /config/postgresql.hba.conf
 /usr/bin/pg_conftool -- set ident_file /config/postgresql.ident.conf
-
-if [ ! -f "/var/lib/postgresql/${POSTGRESQL_VERSION}/main/PG_VERSION" ]
-then
-	/usr/bin/pg_createcluster "${POSTGRESQL_VERSION}" main
-fi
 
 exec "/usr/lib/postgresql/${POSTGRESQL_VERSION}/bin/postmaster" "-D" "/var/lib/postgresql/${POSTGRESQL_VERSION}/main" "-c" "config_file=/etc/postgresql/${POSTGRESQL_VERSION}/main/postgresql.conf"
