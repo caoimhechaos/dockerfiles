@@ -53,7 +53,6 @@ install -o postgres -g postgres -m 2775 -d "/var/run/postgresql/${POSTGRESQL_VER
 /usr/bin/pg_conftool -- set listen_addresses '*'
 /usr/bin/pg_conftool -- set ssl_prefer_server_ciphers on
 /usr/bin/pg_conftool -- set ssl_ciphers 'ALL:!ADH:!LOW:!EXP:!MD5:@STRENGTH'
-/usr/bin/pg_conftool -- set ssl_renegotiation_limit 512MB
 /usr/bin/pg_conftool -- set password_encryption on
 /usr/bin/pg_conftool -- set db_user_namespace off
 
