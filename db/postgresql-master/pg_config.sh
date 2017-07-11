@@ -48,6 +48,7 @@ rm -f "/etc/postgresql/${POSTGRESQL_VERSION}/main/postgresql.conf"
 touch "/etc/postgresql/${POSTGRESQL_VERSION}/main/postgresql.conf"
 
 install -o postgres -g postgres -m 2775 -d "/var/run/postgresql/${POSTGRESQL_VERSION}-main.pg_stat_tmp"
+rm -f "/var/lib/postgresql/${POSTGRESQL_VERSION}/main/postmaster.pid"
 
 # Access
 /usr/bin/pg_conftool -- set listen_addresses '*'
