@@ -2,7 +2,7 @@ FROM debian:stable
 MAINTAINER Caoimhe Chaos <caoimhechaos@protonmail.com>
 
 RUN apt-get -q -y update
-RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold --purge install locales postgresql postgresql-9.6 postgresql-9.6-ip4r postgresql-9.6-pgmemcache postgresql-9.6-plr postgresql-9.6-postgis-2.3 postgresql-9.6-postgis-2.3-scripts postgresql-9.6-prefix
+RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold --purge install locales postgresql postgresql-9.6 postgresql-9.6-ip4r postgresql-9.6-pgmemcache postgresql-9.6-plr postgresql-9.6-postgis-2.3 postgresql-9.6-postgis-2.3-scripts postgresql-9.6-prefix lsof
 
 RUN /usr/bin/pg_dropcluster 9.6 main
 
