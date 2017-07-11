@@ -127,4 +127,9 @@ POSTGRESQL_VERSION="9.6"
 /usr/bin/pg_conftool -- set hba_file /config/postgresql.hba.conf
 /usr/bin/pg_conftool -- set ident_file /config/postgresql.ident.conf
 
+if [ ! -f "/var/lib/postgresql/${POSTGRESQL_VERSION}/main/PG_VERSION" ]
+then
+	/usr/bin/pg_createcluster "${POSTGRESQL_VERSION}" main
+fi
+
 exec "/usr/lib/postgresql/${POSTGRESQL_VERSION}/bin/postmaster" "-D" "/var/lib/postgresql/${POSTGRESQL_VERSION}/main" "-c" "config_file=/etc/postgresql/${POSTGRESQL_VERSION}/main/postgresql.conf"
