@@ -52,6 +52,7 @@ rm -f "/var/lib/postgresql/${POSTGRESQL_VERSION}/main/postmaster.pid"
 
 # Access
 /usr/bin/pg_conftool -- set listen_addresses '*'
+/usr/bin/pg_conftool -- set ssl on
 /usr/bin/pg_conftool -- set ssl_prefer_server_ciphers on
 /usr/bin/pg_conftool -- set ssl_ciphers 'ALL:!ADH:!LOW:!EXP:!MD5:@STRENGTH'
 /usr/bin/pg_conftool -- set password_encryption on
