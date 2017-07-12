@@ -57,6 +57,7 @@ rm -f "/var/lib/postgresql/${POSTGRESQL_VERSION}/main/postmaster.pid"
 /usr/bin/pg_conftool -- set ssl_ciphers 'ALL:!ADH:!LOW:!EXP:!MD5:@STRENGTH'
 /usr/bin/pg_conftool -- set password_encryption on
 /usr/bin/pg_conftool -- set db_user_namespace off
+/usr/bin/pg_conftool -- set unix_socket_directories /var/run/postgresql
 
 # Tuning paramaters
 /usr/bin/pg_conftool -- set shared_buffers 480MB
