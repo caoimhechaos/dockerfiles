@@ -34,18 +34,10 @@ die () {
        exit 1
 }
 
-test -f /secrets/cacert.pem || die "Error: No CA certificate found at /secrets/cacert.pem"
-test -f /secrets/client.crt || die "Error: No client certificate found at /secrets/client.crt"
-test -f /secrets/client.key || die "Error: No client key found at /secrets/client.key"
-test -f /secrets/quasselCert.pem || die "Error: No Quassel certificate bundle found at /secrets/quasselCert.pem"
+test -f /secrets/tls.crt || die "Error: No client certificate found at /secrets/tls.crt"
+test -f /secrets/tls.key || die "Error: No client key found at /secrets/tls.key"
 
-kviator --kvstore=etcd --client=$LOCKSERV --ca-cert=/secrets/cacert.pem	\
-	--client-cert=/secrets/client.crt				\
-	--client-key=/secrets/client.key				\
-	get /config/service/quassel/quasselcore.conf >			\
-	/var/lib/quassel/quasselcore.conf
-chown quassel:quassel /var/lib/quassel/quasselcore.conf
-chmod 0440 /var/lib/quassel/quasselcore.conf
+cat /secrets/tls.crt /secrets/tls.key > /secrets/quasselCert.pem
 install -o quassel -g quassel -m 0440 /secrets/quasselCert.pem	\
 	/var/lib/quassel/quasselCert.pem
 
