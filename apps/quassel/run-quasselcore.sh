@@ -38,6 +38,7 @@ test -f /secrets/tls.crt || die "Error: No client certificate found at /secrets/
 test -f /secrets/tls.key || die "Error: No client key found at /secrets/tls.key"
 
 cat /secrets/tls.crt /secrets/tls.key > /secrets/quasselCert.pem
+rm -f /var/lib/quassel/quasselCert.pem
 install -o quassel -g quassel -m 0440 /secrets/quasselCert.pem	\
 	/var/lib/quassel/quasselCert.pem
 
