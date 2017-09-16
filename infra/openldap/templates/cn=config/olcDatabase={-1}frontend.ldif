@@ -1,0 +1,24 @@
+dn: olcDatabase={-1}frontend
+objectClass: olcDatabaseConfig
+objectClass: olcFrontendConfig
+olcDatabase: {-1}frontend
+olcAccess: {0}to *  by dn.base="cn=ldapadmin,ou=ldap,{{ldap_base_dn}}" write  by 
+ dn.base="cn=syncrepl,ou=ldap,{{ldap_base_dn}}" read  by * none break
+olcAccess: {1}to attrs=userPassword,shadowLastChange  by self write  by anonymous auth  by * no
+ ne
+olcAccess: {2}to *  by * read
+olcAddContentAcl: FALSE
+olcLastMod: TRUE
+olcMaxDerefDepth: 0
+olcReadOnly: FALSE
+olcSchemaDN: cn=Subschema
+olcSecurity: tls=1
+olcSyncUseSubentry: FALSE
+olcMonitoring: FALSE
+structuralObjectClass: olcDatabaseConfig
+entryUUID: c11ba2da-727d-1033-9ddc-2917a8a6a004
+creatorsName: cn=config
+createTimestamp: 20140518021332Z
+entryCSN: 20140518021332.351057Z#000000#000#000000
+modifiersName: cn=config
+modifyTimestamp: 20140518021332Z

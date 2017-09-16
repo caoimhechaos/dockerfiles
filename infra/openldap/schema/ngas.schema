@@ -1,0 +1,64 @@
+# $Id: ngas.schema,v 1.1 2008/05/12 08:49:13 rnussbaumer Exp $
+# OID: 1.3.6.1.3.232342
+# This OID is NOT REAL. Please register one.
+
+# Structure:
+# 1.3.6.1.3.65
+# LDAP        .1
+# Object class  .100
+# Attribute     .200
+
+objectIdentifier RootOID 1.3.6.1.3.232342
+objectIdentifier LdapOID RootOID:1
+objectIdentifier LdapObjectClassOID LdapOID:100
+objectIdentifier LdapAttributeOID LdapOID:200
+
+
+# ----------------------------------------
+# Attributes
+# ----------------------------------------
+
+# Policy attributes
+attributeType ( LdapAttributeOID:100 NAME 'rootAccess'
+    DESC 'dn(s) with root access'
+    SUP distinguishedName )
+
+attributeType ( LdapAttributeOID:101 NAME 'loginAccess'
+    DESC 'dn(s) with login access'
+    SUP distinguishedName )
+
+attributeType ( LdapAttributeOID:102 NAME 'serendipityUserlevel'
+    DESC 'dn(s) with serendipity access'
+    EQUALITY integerMatch
+    SYNTAX 1.3.6.1.4.1.1466.115.121.1.27
+    SINGLE-VALUE )
+
+# Host attributes
+attributeType ( LdapAttributeOID:200 NAME 'hostAccess'
+    DESC 'dn(s) of applying policies'
+    SUP distinguishedName )
+
+# ----------------------------------------
+# Classes
+# ----------------------------------------
+
+objectClass ( LdapObjectClassOID:100 NAME 'policy'
+    DESC 'defines policies'
+    SUP top
+    STRUCTURAL
+    MUST ( cn )
+    MAY ( rootAccess $ loginAccess $ description ) )
+
+objectClass ( LdapObjectClassOID:101 NAME 'serendipityAccount'
+    DESC 'Serendipity user attributes'
+    SUP top
+    AUXILIARY
+    MUST ( cn $ serendipityUserlevel )
+    MAY ( mail ) )
+
+objectClass ( LdapObjectClassOID:200 NAME 'distinctHost'
+    DESC 'Distinct host entry'
+    SUP top
+    STRUCTURAL
+    MUST ( cn )
+    MAY ( hostAccess $ owner $ description ) )

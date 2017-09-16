@@ -1,0 +1,15 @@
+dn: cn=module{0}
+objectClass: olcModuleList
+cn: module{0}
+olcModulePath: {{ldap_module_path}}
+olcModuleLoad: {0}back_hdb.so
+{%- if not master %}
+olcModuleLoad: {1}syncprov.so
+{%- endif %}
+structuralObjectClass: olcModuleList
+entryUUID: c11b48bc-727d-1033-9dd3-2917a8a6a004
+creatorsName: cn=config
+createTimestamp: 20140518021332Z
+entryCSN: 20140518021332.351057Z#000000#000#000000
+modifiersName: cn=config
+modifyTimestamp: 20140518021332Z

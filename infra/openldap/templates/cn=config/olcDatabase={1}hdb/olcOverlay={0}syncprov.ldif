@@ -1,0 +1,14 @@
+dn: olcOverlay={0}syncprov
+objectClass: olcOverlayConfig
+objectClass: olcSyncProvConfig
+olcOverlay: {0}syncprov
+olcSpCheckpoint: 100 10
+olcSpSessionlog: 100
+olcSpReloadHint: TRUE
+structuralObjectClass: olcSyncProvConfig
+entryUUID: c11bae1a-727d-1033-9ddf-2917a8a6a004
+creatorsName: cn=config
+createTimestamp: 20140518021332Z
+entryCSN: 20140518021332.351057Z#000000#000#000000
+modifiersName: cn=config
+modifyTimestamp: 20140518021332Z

@@ -1,0 +1,32 @@
+dn: cn={4}ngas
+objectClass: olcSchemaConfig
+cn: {4}ngas
+olcObjectIdentifier: {0}RootOID 1.3.6.1.3.232342
+olcObjectIdentifier: {1}LdapOID RootOID:1
+olcObjectIdentifier: {2}LdapObjectClassOID LdapOID:100
+olcObjectIdentifier: {3}LdapAttributeOID LdapOID:200
+olcAttributeTypes: {0}( LdapAttributeOID:100 NAME 'rootAccess' DESC 'dn(s) wit
+ h root access' SUP distinguishedName )
+olcAttributeTypes: {1}( LdapAttributeOID:101 NAME 'loginAccess' DESC 'dn(s) wi
+ th login access' SUP distinguishedName )
+olcAttributeTypes: {2}( LdapAttributeOID:102 NAME 'serendipityUserlevel' DESC 
+ 'dn(s) with serendipity access' EQUALITY integerMatch SYNTAX 1.3.6.1.4.1.1466
+ .115.121.1.27 SINGLE-VALUE )
+olcAttributeTypes: {3}( LdapAttributeOID:200 NAME 'hostAccess' DESC 'dn(s) of 
+ applying policies' SUP distinguishedName )
+olcObjectClasses: {0}( LdapObjectClassOID:100 NAME 'policy' DESC 'defines poli
+ cies' SUP top STRUCTURAL MUST cn MAY ( rootAccess $ loginAccess $ description
+  ) )
+olcObjectClasses: {1}( LdapObjectClassOID:101 NAME 'serendipityAccount' DESC '
+ Serendipity user attributes' SUP top AUXILIARY MUST ( cn $ serendipityUserlev
+ el ) MAY mail )
+olcObjectClasses: {2}( LdapObjectClassOID:200 NAME 'distinctHost' DESC 'Distin
+ ct host entry' SUP top STRUCTURAL MUST cn MAY ( hostAccess $ owner $ descript
+ ion ) )
+structuralObjectClass: olcSchemaConfig
+entryUUID: c11b9132-727d-1033-9dd9-2917a8a6a004
+creatorsName: cn=config
+createTimestamp: 20140518021332Z
+entryCSN: 20140518021332.351057Z#000000#000#000000
+modifiersName: cn=config
+modifyTimestamp: 20140518021332Z

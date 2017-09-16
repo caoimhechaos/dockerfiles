@@ -1,0 +1,57 @@
+dn: olcDatabase={1}hdb
+objectClass: olcDatabaseConfig
+objectClass: olcHdbConfig
+olcDatabase: {1}hdb
+olcSuffix: {{ldap_base_dn}}
+olcAddContentAcl: FALSE
+olcLastMod: TRUE
+olcMaxDerefDepth: 15
+olcReadOnly: FALSE
+olcRootDN: cn=Manager,{{ldap_base_dn}}
+olcRootPW: {{ olc_root_pw }}
+olcSecurity: tls=1
+olcSyncUseSubentry: FALSE
+{%- if master %}
+olcSyncrepl: rid={{ldap_syncrepl_rid}} provider=ldaps://{{master}}/
+  bindmethod=simple timeout=0 network-timeout=0
+  binddn="cn=syncrepl,ou=ldap,{{ldap_base_dn}}"
+  credentials="{{ syncrepl_pw }}"
+  keepalive=0:0:0 starttls=no tls_cert="/ssl/tls.crt"
+  tls_key="/ssl/tls.key"
+  tls_cacert="/sslca/ca.crt" tls_reqcert=demand
+  tls_cipher_suite=ECDH+AESGCM:DH+AESGCM:ECDH+AES256:DH+AES256:ECDH+AES128:DH+AES:ECDH+3DES:DH+3DES:RSA+AESGCM:RSA+AES:!aNULL:!ADH:!EXPORT56:!MD5:!DSS
+  filter="(objectclass=*)" searchbase="{{ldap_base_dn}}"
+  scope=sub schemachecking=off type=refreshAndPersist retry="60 5 300 +"
+olcUpdateRef: ldaps://{{master}}/
+olcMirrorMode: FALSE
+olcMonitoring: FALSE
+{%- else %}
+olcMonitoring: TRUE
+{%- endif %}
+olcDbDirectory: {{ldap_data_path}}
+olcDbCacheSize: 1000
+olcDbCheckpoint: 32 30
+olcDbConfig: {0}set_cachesize 0 268435456 1
+olcDbConfig: {1}set_lg_regionmax 262144
+olcDbConfig: {2}set_lg_bsize 2097152
+olcDbConfig: {3}#set_lg_dir logs
+olcDbNoSync: FALSE
+olcDbDirtyRead: FALSE
+olcDbIDLcacheSize: 0
+olcDbIndex: objectClass eq
+olcDbIndex: entryUUID pres,eq
+olcDbIndex: cn pres,eq
+olcDbIndex: uid pres,eq
+olcDbLinearIndex: FALSE
+olcDbMode: 0600
+olcDbSearchStack: 16
+olcDbShmKey: 0
+olcDbCacheFree: 1
+olcDbDNcacheSize: 0
+structuralObjectClass: olcHdbConfig
+entryUUID: c11baafa-727d-1033-9dde-2917a8a6a004
+creatorsName: cn=config
+createTimestamp: 20140518021332Z
+entryCSN: 20140518021332.351057Z#000000#000#000000
+modifiersName: cn=config
+modifyTimestamp: 20140518021332Z
