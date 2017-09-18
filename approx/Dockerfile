@@ -21,7 +21,7 @@ RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-
 # Set up rsyslog.
 COPY rsyslog.conf /etc/rsyslog.conf
 
-# Configure approx.
+# Configure approx with some defaults.
 COPY approx.conf /etc/approx/approx.conf
 
 # Ensure we have the directories required for the volumes.
@@ -33,6 +33,9 @@ ADD run-inetd.sh /usr/local/bin/run-inetd.sh
 
 # It's an HTTP server.
 EXPOSE 8080/tcp
+
+# Config and cache directory is an obvious candidate for volumes.
+VOLUME ["/etc/approx", "/srv/approx/cache"]
 
 # Our main purpose will be to run inetd.
 CMD /bin/sh /usr/local/bin/run-inetd.sh
