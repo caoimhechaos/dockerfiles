@@ -16,7 +16,7 @@ RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-
 RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold --purge install rsyslog rsyslog-relp
 
 # Install approx, esmtp and the inetd to run approx from.
-RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold --purge install micro-inetd approx bzip2 openbsd-inetd update-inetd
+RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold --purge install approx bzip2 openbsd-inetd update-inetd
 
 # Set up rsyslog.
 COPY rsyslog.conf /etc/rsyslog.conf
