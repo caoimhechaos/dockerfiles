@@ -1,4 +1,4 @@
-FROM alpine:3.5
+FROM alpine:3.6
 MAINTAINER Caoimhe Chaos <caoimhechaos@protonmail.com>
 
 RUN apk update && apk add gitolite openssh openssh-client
