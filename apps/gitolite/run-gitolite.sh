@@ -32,6 +32,7 @@
 
 set -e
 
+install -o root -g root -m 0755 -d /run/sshd
 chown git:git /var/lib/git
 install -o git -g git -m 0700 -d /var/lib/git/.gitolite	\
 	/var/lib/git/.gitolite/logs
