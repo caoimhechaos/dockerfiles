@@ -32,6 +32,7 @@
 
 set -e
 
+chown git:git /var/lib/git
 install -o git -g git -m 0700 -d /var/lib/git/.gitolite	\
 	/var/lib/git/.gitolite/logs
 
