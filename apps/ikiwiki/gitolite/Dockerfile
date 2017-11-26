@@ -12,6 +12,9 @@ RUN install -o git -g git -m 0755 -d /var/lib/git /var/lib/git/.gitolite
 COPY run-gitolite.sh /usr/local/bin/run-gitolite.sh
 RUN chmod 0555 /usr/local/bin/run-gitolite.sh
 
+RUN ["/usr/sbin/adduser", "git", "www-data"]
+RUN ["/usr/sbin/adduser", "www-data", "git"]
+
 USER root
 EXPOSE 22/tcp
 VOLUME ["/import", "/secrets", "/var/lib/git", "/srv/www", "/etc/ikiwiki"]
