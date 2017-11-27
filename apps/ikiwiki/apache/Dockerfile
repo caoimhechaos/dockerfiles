@@ -12,6 +12,7 @@ RUN a2enmod auth_basic authn_core authnz_ldap authz_user cgi http2 ldap perl \
 
 ADD ports.conf /etc/apache2/ports.conf
 ADD srv.conf /etc/apache2/conf-available/srv.conf
+ADD ldapca.conf /etc/apache2/conf-available/ldapca.conf
 
 ADD run-ikiwiki.sh /usr/local/bin/run-ikiwiki.sh
 RUN ["/usr/bin/chmod", "0555", "/usr/local/bin/run-ikiwiki.sh"]
@@ -25,6 +26,7 @@ RUN ["/usr/sbin/adduser", "git", "www-data"]
 RUN ["/usr/sbin/adduser", "www-data", "git"]
 
 RUN ["/usr/sbin/a2enconf", "srv"]
+RUN ["/usr/sbin/a2enconf", "ldapca"]
 
 USER www-data:git
 EXPOSE 8080/tcp 8443/tcp
@@ -37,5 +39,5 @@ ENV APACHE_LOCK_DIR /var/lock/apache2
 ENV APACHE_LOG_DIR /var/log/apache2
 ENV LANG C
 
-VOLUME ["/secrets", "/var/lib/git", "/srv/www", "/etc/ikiwiki"]
+VOLUME ["/secret", "/var/lib/git", "/srv/www", "/etc/ikiwiki", "/etc/ldap/ssl"]
 ENTRYPOINT ["/usr/local/bin/run-ikiwiki.sh"]
