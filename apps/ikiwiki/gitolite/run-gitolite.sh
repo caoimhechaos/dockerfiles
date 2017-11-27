@@ -34,6 +34,7 @@ set -e
 
 install -o root -g root -m 0755 -d /run/sshd
 chown git:git /var/lib/git
+chmod 2755 /var/lib/git
 install -o git -g git -m 0700 -d /var/lib/git/.gitolite	\
 	/var/lib/git/.gitolite/logs
 
@@ -44,6 +45,9 @@ if [ ! -e /var/lib/git/.gitolite/conf/gitolite.conf ] &&	\
 then
 	su - git -c 'gitolite setup -pk /import/admin.pub'
 fi
+
+chmod 2755 /var/lib/git
+chmod -R go-rwx /var/lib/git/.ssh
 
 install -o root -g root -m 0755 -d /etc/ssh
 for f in /secrets/ssh_host_*
