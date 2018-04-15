@@ -4,7 +4,7 @@ LABEL maintainer Caoimhe Chaos <caoimhechaos@protonmail.com>
 # Tell apt to keep to itself.
 ENV DEBIAN_FRONTEND noninteractive
 ENV SETUID_USER approx
-ENV APPROX_PORT 8080
+ENV APPROX_LISTEN_PORT 8080
 
 # Build the sources.list cache.
 RUN apt-get -q -y update
