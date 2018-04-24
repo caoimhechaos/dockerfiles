@@ -1,5 +1,4 @@
-SocksPort 9050
-SocksListenAddress @ADDRESS@:9050
+SocksPort @ADDRESS@:9050
 
 # Accept only RFC1918 and similar non-routed adresses. The assumption
 # is that if the cluster owner routed this here there must be a
@@ -11,8 +10,7 @@ SOCKSPolicy accept 100.64.0.0/16
 SOCKSPolicy reject *
 
 # Provide a DNS service over Tor
-DNSPort 9053
-DNSListenAddress @ADDRESS@:9053
+DNSPort @ADDRESS@:9053
 AutomapHostsOnResolve 1
 AutomapHostsSuffixes .exit,.onion
 WarnUnsafeSocks 0
