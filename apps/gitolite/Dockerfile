@@ -1,7 +1,7 @@
 FROM alpine:3.6
 MAINTAINER Caoimhe Chaos <caoimhechaos@protonmail.com>
 
-RUN apk update && apk add gitolite openssh openssh-client
+RUN apk update && apk add gitolite openssh openssh-client dumb-init
 
 # Enable (SSH key) logins for git user
 RUN sed -i -e's/^git:!:/git::/g' /etc/shadow
