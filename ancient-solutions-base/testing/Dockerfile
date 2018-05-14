@@ -1,16 +1,20 @@
 FROM debian:testing
 MAINTAINER Caoimhe Chaos <caoimhechaos@protonmail.com>
 
+# Apply changes so we can install apt-transport-https.
+RUN apt-get -q -y update
+RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold --purge install curl gnupg2
+
 # Build the sources.list file.
-RUN echo "deb http://debian.l.internetputzen.com/debian/ testing main contrib non-free" > /etc/apt/sources.list
-RUN echo "deb http://debian.l.internetputzen.com/security/ testing/updates main contrib non-free" >> /etc/apt/sources.list
+RUN echo "deb https://debian.l.internetputzen.com/debian/ testing main contrib non-free" > /etc/apt/sources.list
+RUN echo "deb https://debian.l.internetputzen.com/security/ testing/updates main contrib non-free" >> /etc/apt/sources.list
 
 # Apply changes so we can install curl.
-RUN apt-get update
+RUN apt-get -q -y update
 RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold --purge install curl gnupg2
 
 # Now add the ancient solutions apt source.
-RUN echo "deb http://debian.l.internetputzen.com/ancientsolutions/ testing main third-party" > /etc/apt/sources.list.d/ancientsolutions.list
+RUN echo "deb https://debian.l.internetputzen.com/ancientsolutions/ testing main third-party" > /etc/apt/sources.list.d/ancientsolutions.list
 
 # Install the ancient solutions debian key.
 RUN curl -k -m 30 https://caoimhe.io/caoimhe.asc | apt-key add -

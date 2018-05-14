@@ -1,12 +1,17 @@
 FROM debian:stable
 MAINTAINER Caoimhe Chaos <caoimhechaos@protonmail.com>
 
+# Apply changes so we can install apt-transport-https.
+RUN apt-get -q -y update
+RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold --purge install apt-transport-https
+
+
 # Build the sources.list file.
 RUN echo "deb http://debian.l.internetputzen.com/debian/ stable main contrib non-free" > /etc/apt/sources.list
 RUN echo "deb http://debian.l.internetputzen.com/security/ stable/updates main contrib non-free" >> /etc/apt/sources.list
 
 # Apply changes so we can install curl.
-RUN apt-get update
+RUN apt-get -q -y update
 RUN apt-get -q -y -o Dpkg::Options::=--force-confdef -o Dpkg::Options::=--force-confold --purge install curl
 
 # Now add the ancient solutions apt source.
