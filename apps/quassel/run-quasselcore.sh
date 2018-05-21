@@ -37,10 +37,13 @@ die () {
 test -f /secrets/tls.crt || die "Error: No client certificate found at /secrets/tls.crt"
 test -f /secrets/tls.key || die "Error: No client key found at /secrets/tls.key"
 
-cat /secrets/tls.crt /secrets/tls.key > /secrets/quasselCert.pem
+tmppath="$(mktemp -t quasselCert.pem.XXXXXX)"
+
+cat /secrets/tls.crt /secrets/tls.key > "$tmppath"
 rm -f /var/lib/quassel/quasselCert.pem
-install -o quassel -g quassel -m 0440 /secrets/quasselCert.pem	\
+install -o quassel -g quassel -m 0440 "$tmppath"	\
 	/var/lib/quassel/quasselCert.pem
+rm -f "$tmppath"
 
 exec quasselcore -c /var/lib/quassel --oidentd --loglevel=Info		\
 	--port=4242 --logfile=/var/log/quassel/core.log 
