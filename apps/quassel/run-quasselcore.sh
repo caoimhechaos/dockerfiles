@@ -41,7 +41,7 @@ tmppath="$(mktemp -t quasselCert.pem.XXXXXX)"
 
 cat /secrets/tls.crt /secrets/tls.key > "$tmppath"
 rm -f /var/lib/quassel/quasselCert.pem
-install -o quassel -g quassel -m 0440 "$tmppath"	\
+install -o quasselcore -g quassel -m 0440 "$tmppath"	\
 	/var/lib/quassel/quasselCert.pem
 rm -f "$tmppath"
 
