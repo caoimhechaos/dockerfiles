@@ -1,4 +1,4 @@
-FROM alpine:3.7
+FROM alpine:3.9
 LABEL maintainer Caoimhe Chaos <caoimhechaos@protonmail.com>
 
 COPY run-quasselcore.sh /usr/bin/run-quasselcore.sh
