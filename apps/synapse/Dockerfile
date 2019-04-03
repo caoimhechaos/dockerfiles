@@ -14,15 +14,14 @@ ADD matrix-repo.list /etc/apt/sources.list.d/matrix-repo.list
 RUN apt-key add /etc/apt/matrix-repo-key.asc && apt-get -q -y update && \
     apt-get -q -y -o Dpkg::Options::=--force-confdef \
     -o Dpkg::Options::=--force-confold --purge install matrix-synapse \
-     python-psycopg2 python3-psycopg2 python-lxml python3-lxml \
-     matrix-synapse-angular-client
+     python-psycopg2 python3-psycopg2 python-lxml python3-lxml lsof git-core
 
 VOLUME ["/etc/matrix-synapse/base", "/etc/matrix-synapse/conf.d", \
     "/etc/matrix-synapse/secrets.d", "/var/lib/matrix-synapse", \
     "/etc/matrix-synapse/secrets", "/tls"]
 
 USER matrix-synapse
-ENTRYPOINT ["/usr/bin/python", "-m", "synapse.app.homeserver"]
+ENTRYPOINT ["/usr/bin/python3", "-m", "synapse.app.homeserver"]
 CMD ["--config-path=/etc/matrix-synapse/base/homeserver.yaml", \
     "--config-path=/etc/matrix-synapse/conf.d/", \
     "--config-path=/etc/matrix-synapse/secrets.d/"]
