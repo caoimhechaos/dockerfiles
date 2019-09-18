@@ -6,7 +6,8 @@ RUN adduser --system --shell /bin/bash --gecos 'Git access' \
     --home /var/lib/git --no-create-home --group --disabled-password git
 RUN apt-get -q -y update && apt-get -q -y -o Dpkg::Options::=--force-confdef \
     -o Dpkg::Options::=--force-confold --purge install apache2 apache2-utils \
-    libapache2-mod-perl2 libapache2-mod-rpaf libxml-writer-perl ikiwiki
+    libapache2-mod-perl2 libapache2-mod-rpaf libxml-writer-perl libtext-csv-perl \
+    libtext-csv-xs-perl libimage-magick-perl imagemagick ikiwiki
 RUN a2enmod auth_basic authn_core authnz_ldap authz_user cgi http2 ldap perl \
     rpaf ssl
 
@@ -15,10 +16,10 @@ ADD srv.conf /etc/apache2/conf-available/srv.conf
 ADD ldapca.conf /etc/apache2/conf-available/ldapca.conf
 
 ADD run-ikiwiki.sh /usr/local/bin/run-ikiwiki.sh
-RUN ["/usr/bin/chmod", "0555", "/usr/local/bin/run-ikiwiki.sh"]
+RUN ["/bin/chmod", "0555", "/usr/local/bin/run-ikiwiki.sh"]
 RUN ["/usr/bin/install", "-m", "0775", "-o", "www-data", "-g", "www-data", \
      "-d", "/var/log/apache2", "/run/apache2"]
-RUN ["/usr/bin/chown", "-R", "www-data:www-data", "/var/log/apache2", \
+RUN ["/bin/chown", "-R", "www-data:www-data", "/var/log/apache2", \
      "/run/apache2", "/etc/apache2/sites-available", \
      "/etc/apache2/sites-enabled", "/var/lib/apache2/site/enabled_by_admin"]
 
