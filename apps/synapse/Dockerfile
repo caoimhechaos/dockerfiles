@@ -6,6 +6,7 @@ RUN adduser --system --shell /usr/sbin/nologin --gecos 'Matrix Synapse User' \
     --home /var/lib/matrix-synapse --no-create-home --group \
     --disabled-password matrix-synapse
 
+ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get -q -y update && apt-get -q -y -o Dpkg::Options::=--force-confdef \
     -o Dpkg::Options::=--force-confold --purge install curl gnupg2 \
     apt-transport-https
