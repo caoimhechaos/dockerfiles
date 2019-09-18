@@ -1,0 +1,11 @@
+FROM archlinux/base:latest
+LABEL maintainer="Caoimhe Chaos <caoimhechaos@protonmail.com>"
+
+RUN pacman-db-upgrade && pacman -Syy --noconfirm && pacman -S --noconfirm prosody lua52-dbi lua52-sec mercurial postgresql-libs && pacman -Scc --noconfirm
+RUN hg clone https://hg.prosody.im/prosody-modules/ /tmp/prosody-modules; for module in /tmp/prosody-modules/mod_*; do cp -Rv $module /usr/lib/prosody/modules; done; rm -fr /tmp/prosody-modules
+
+VOLUME ["/etc/prosody", "/var/lib/prosody"]
+EXPOSE 80 443 5222 5269 5347 5280 5281
+USER prosody
+ENV __FLUSH_LOG yes
+CMD ["/usr/bin/prosody"]
