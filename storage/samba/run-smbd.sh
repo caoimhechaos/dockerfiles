@@ -4,8 +4,13 @@ set_smb_setting() {
 	setting="$1"
 	value="$2"
 
-	sed -i -e "s/^[#;]*[ \t]*${setting} = .*$/   ${setting} = $value/g"	\
-		/etc/samba/smb.conf
+	if grep -qE "^[#;]*[ \t]*${setting} = .*$" /etc/samba/smb.conf
+	then
+		sed -i -e "s/^[#;]*[ \t]*${setting} = .*$/   ${setting} = ${value}/g"	\
+			/etc/samba/smb.conf
+	else
+		sed -i '/\[global\]/a \   '"${setting} = ${value}" /etc/samba/smb.conf
+	fi
 }
 
 install -o root -g root -d 0755 /var/lib/samba /var/lib/samba/sysvol
@@ -31,6 +36,11 @@ set_smb_setting "workgroup" "$SAMBA_WORKGROUP"
 set_smb_setting "server string" "$SAMBA_SERVER_NAME"
 set_smb_setting "server role" "standalone server"
 set_smb_setting "guest account" "nobody"
+set_smb_setting "socket options" "TCP_NODELAY IPTOS_LOWDELAY SO_RCVBUF=524288 SO_SNDBUF=524288"
+set_smb_setting "rpc_daemon:mdssvc" "embedded"
+set_smb_setting "fruit:model" "MacPro"
+set_smb_setting "fruit:advertise_fullsync" "true"
+set_smb_setting "fruit:aapl" "yes"
 
 if test x"$SAMBA_LDAP_SERVER" = x
 then
@@ -65,8 +75,22 @@ do
    writable = yes
    create mask = 0660
    directory mask = 0770
-
+   durable handles = yes
+   kernel oplocks = no
+   kernel share modes = no
+   posix locking = no
+   spotlight = yes
+   vfs objects = catia fruit streams_xattr
+   ea support = yes
+   inherit acls = yes
+   fruit:aapl = yes
 EOT
+	case "$bn" in
+	tm-*)
+		echo "   fruit:time machine = yes" >> /etc/samba/smb.conf;;
+	*)
+		;;
+	esac
 	if test -f "$dir/.acl"
 	then
 		users=`xargs echo < "$dir/.acl"`
@@ -74,5 +98,7 @@ EOT
 	fi
 done
 
+export TRACKER_BUS_TYPE=system
+
 echo "Launching $SAMBA_ROLE"
-exec /usr/sbin/$SAMBA_ROLE --foreground -S --no-process-group -d 31 < /dev/null
+exec /usr/sbin/$SAMBA_ROLE --foreground -S --no-process-group < /dev/null
