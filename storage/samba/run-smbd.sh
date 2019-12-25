@@ -15,7 +15,15 @@ install -o root -g root -d 0700 /var/lib/samba/private
 if test x"$SAMBA_WORKGROUP" = x || test x"$SAMBA_SERVER_NAME" = x
 then
 	echo "Required environment variable not set. Required:" 1>&2
-	echo SAMBA_WORKGROUP, SAMBA_SERVER_NAME 1>&2
+	echo SAMBA_WORKGROUP, SAMBA_SERVER_NAME, SAMBA_ROLE 1>&2
+	exit 1
+fi
+
+if test x"$SAMBA_ROLE" = xsmbd || test x"$SAMBA_ROLE" = xnmbd
+then
+	:
+else
+	echo "SAMBA_ROLE must be set to either smbd or nmbd." 1>&2
 	exit 1
 fi
 
@@ -55,6 +63,9 @@ do
    path = $dir
    public = no
    writable = yes
+   create mask = 0660
+   directory mask = 0770
+
 EOT
 	if test -f "$dir/.acl"
 	then
@@ -63,5 +74,5 @@ EOT
 	fi
 done
 
-/usr/sbin/nmbd -F -S --no-process-group &
-exec /usr/sbin/smbd -F -S --no-process-group
+echo "Launching $SAMBA_ROLE"
+exec /usr/sbin/$SAMBA_ROLE --foreground -S --no-process-group -d 31 < /dev/null
