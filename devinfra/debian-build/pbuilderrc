@@ -1,0 +1,10 @@
+PDEBUILD_PBUILDER=cowbuilder
+BASEPATH="/var/cache/pbuilder/$NAME/base.cow/"
+DISTRIBUTON=sid
+MIRRORSITE="https://debian.l.internetputzen.com/debian/"
+USEPROC=no
+USESYSFS=no
+USESHM=no
+USEDEVPTS=no
+# DISTRIBUTON=xenial
+# MIRRORSITE="https://debian.l.internetputzen.com/ubuntu/"
